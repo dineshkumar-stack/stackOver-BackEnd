@@ -5,7 +5,7 @@ const note = [
 
     {
         id: 1,
-        content: "Stack Clone",
+        content: "Stack Clone!",
         important: true,
     },
     {
@@ -18,7 +18,7 @@ const note = [
 
 //end points
 app.get('/',(req, res)=>{
-    res.send('Hello');
+    res.send('Hello!');
 })
 
 app.get('/api/notes', (req, res)=>{
