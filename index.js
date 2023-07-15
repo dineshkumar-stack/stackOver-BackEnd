@@ -1,4 +1,5 @@
-const http = require('http');
+const express = require('express');
+const app = express();
 
 const note = [
 
@@ -15,12 +16,14 @@ const note = [
 
 ];
 
+//end points
+app.get('/',(req, res)=>{
+    res.send('Hello');
+})
 
-const app = http.createServer((request, response) => {
-    response.writeHead(200, { 'content-Type': 'application/json' });
-    response.end(JSON.stringify(note));
-
-});
+app.get('/api/notes', (req, res)=>{
+    res.json(note);
+})
 
 const PORT = 3005;
 app.listen(PORT);
