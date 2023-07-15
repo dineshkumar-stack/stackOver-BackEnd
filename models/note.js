@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
 
 
-const url =
-    `mongodb+srv://stardinesh4:Mankind@cluster0.u1r9krm.mongodb.net/StackOverDB?retryWrites=true&w=majority`;
-
+const url = process.env.MONGODB_URI;
+    
 mongoose.set('strictQuery', false);
 
 mongoose.connect(url)
@@ -31,4 +30,6 @@ noteSchema.set('toJSON', {
         delete returnObject._id
         delete returnObject.__v
     }
-})
+});
+
+module.exports = mongoose.model('Note', noteSchema);

@@ -1,45 +1,19 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
-const mongoose = require('mongoose');
 app.use(express.json());
+const cors = require('cors')
 
-
-///////////////////WWWWWWWWWWWWWWW////////////////////////
-
-const url =
-    `mongodb+srv://stardinesh4:Mankind@cluster0.u1r9krm.mongodb.net/StackOverDB?retryWrites=true&w=majority`;
-
-mongoose.set('strictQuery', false);
-
-mongoose.connect(url)
-    .then(result => {
-        console.log('*******connected to MongoDB********');
-    })
-    .catch((error) => {
-        console.log('Error connecting MongoDB', error.message);
-    });
-
-const noteSchema = new mongoose.Schema({
-    content: String,
-    important: Boolean,
-    timeStamp: {
-        type: Date,
-        default: Date.now
-    }
-});
-
+////////////////////////WWWWWWWWWWWWWWWWWWWWWW////////////
+// const Note = mongoose.model('Note', noteSchema, 'notes');
 //Create model
 
-const Note = mongoose.model('Note', noteSchema, 'notes');
-
-
-////////////////////////WWWWWWWWWWWWWWWWWWWWWW//////////////////////////////
+const Note = require('./models/note')
 
 //end points
 app.get('/', (req, res) => {
     res.send('Hello!');
 })
-
 
 //Fetch all the resource in the note collection
 app.get('/api/notes', (req, res) => {
@@ -50,19 +24,10 @@ app.get('/api/notes', (req, res) => {
 
 })
 
-const PORT = 3005;
-app.listen(PORT);
-
-console.log(`*****Server Running on Port ${PORT}*****`);
-
-//cleanup__
-noteSchema.set('toJSON', {
-    transform: (document, returnObject) => {
-        returnObject.id = returnObject._id.toString()
-        delete returnObject._id
-        delete returnObject.__v
-    }
-})
+const PORT = process.env.PORT || 3005;
+app.listen(PORT, () => {
+    console.log(`*****Server Running on Port ${PORT}*****`);
+});
 
 
 //Create a new date
@@ -125,9 +90,7 @@ app.put('/api/notes/:id', (req, res) => {
             if (!updatedNote) {
                 return res.status(404).json({ error: 'Please check replace not done properly' })
             }
-
             res.json(updatedNote);
-
         })
         .catch((error) => {
             res.status(500).json({ error: "Internal server error" })
