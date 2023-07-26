@@ -2,7 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 app.use(express.json());
-const cors = require('cors')
+var cors = require('cors');
+app.use(cors());
 
 ////////////////////////WWWWWWWWWWWWWWWWWWWWWW////////////
 // const Note = mongoose.model('Note', noteSchema, 'notes');
