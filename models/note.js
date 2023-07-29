@@ -14,7 +14,9 @@ mongoose.connect(url)
     });
 
 const noteSchema = new mongoose.Schema({
+    title: String,
     content: String,
+    comments: String,
     important: Boolean,
     timeStamp: {
         type: Date,
