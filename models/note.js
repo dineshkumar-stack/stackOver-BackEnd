@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 
 const url = process.env.MONGODB_URI;
-    
+
 mongoose.set('strictQuery', false);
 
 mongoose.connect(url)
@@ -17,6 +17,7 @@ const noteSchema = new mongoose.Schema({
     title: String,
     content: String,
     comments: String,
+    tag: String,
     important: Boolean,
     timeStamp: {
         type: Date,
