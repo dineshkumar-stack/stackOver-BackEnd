@@ -8,8 +8,11 @@ app.use(cors());
 ////////////////////////WWWWWWWWWWWWWWWWWWWWWW////////////
 // const Note = mongoose.model('Note', noteSchema, 'notes');
 //Create model
-
 const Note = require('./models/note')
+const userRouter = require('./routers/user.js')
+
+
+app.use("/user", userRouter)
 
 //end points
 app.get('/', (req, res) => {
