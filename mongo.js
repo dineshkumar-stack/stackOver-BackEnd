@@ -1,4 +1,46 @@
-// const mongoose = require('mongoose');
+
+const { MongoClient, ObjectId } = require("mongodb");
+const dotenv = require("dotenv");
+dotenv.config();
+const mongoConnectString = process.env.MONGODB_URI;
+
+async function dbConnection() {
+    const client = new MongoClient(mongoConnectString);
+    await client.connect();
+    console.log('MongoDB connected successfully');
+    return client;
+}
+
+(async () => {
+    const client = await dbConnection();
+    module.exports.client = client;
+})();
+
+module.exports = { dbConnection, ObjectId };
+
+
+
+
+
+
+
+// const url = process.env.MONGODB_URI;
+
+
+// import { MongoClient } from "mongodb";
+// import dotenv from "dotenv"
+// import Obj from "mongodb"
+// dotenv.config()
+
+// export async function dbConnection(){
+//     const client = new MongoClient(url);
+//     await client.connect();
+//     console.log('MongoDB connected succesfully');
+//     return client
+// }
+
+// export var ObjectId = Obj.ObjectId;
+// export const client = await dbConnection();
 
 // const url =
 //     `mongodb+srv://stardinesh4:Mankind@cluster0.u1r9krm.mongodb.net/StackOverDB?retryWrites=true&w=majority`;
