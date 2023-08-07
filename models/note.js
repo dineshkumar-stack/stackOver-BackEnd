@@ -18,7 +18,7 @@ const noteSchema = new mongoose.Schema({
     content: String,
     comments: String,
     tag: String,
-    important: Boolean,
+    important: String,
     timeStamp: {
         type: Date,
         default: Date.now
