@@ -4,6 +4,7 @@ const app = express();
 app.use(express.json());
 var cors = require('cors');
 app.use(cors());
+const bodyParser = require('body-parser');
 var bcrypt = require('bcryptjs');
 
 ////////////////////////WWWWWWWWWWWWWWWWWWWWWW////////////
@@ -11,11 +12,12 @@ var bcrypt = require('bcryptjs');
 //Create model
 const Note = require('./models/note')
 const User = require('./models/userModels')
+const Comment = require('./models/comment'); 
 
 const userRouter = require('./routers/user.js')
 
-
 app.use("/user", userRouter)
+app.use(bodyParser.json());
 
 
 
@@ -23,6 +25,26 @@ app.use("/user", userRouter)
 app.get('/', (req, res) => {
     res.send('Hello!');
 })
+
+app.post('/api/comments', async (req, res) => {
+    try {
+      const { questionId, text } = req.body;
+  
+      // Create a new comment and save it to the database
+      const newComment = new Comment({
+        questionId,
+        text,
+      });
+      await newComment.save();
+  
+      res.status(201).json(newComment);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Server error' });
+    }
+  });
+
+
 
 //Fetch all the resource in the note collection
 app.get('/api/notes', (req, res) => {
