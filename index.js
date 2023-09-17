@@ -4,20 +4,24 @@ const app = express();
 app.use(express.json());
 var cors = require('cors');
 app.use(cors());
+const db = require("./src/config/db");
+const Note = require("./src/models/Question");
+
 
 ////////////////////////WWWWWWWWWWWWWWWWWWWWWW////////////
 // const Note = mongoose.model('Note', noteSchema, 'notes');
+
 //Create model
-const Note = require('./models/note')
-const userRouter = require('./routers/user.js')
+const authRoutes = require('./src/routes/authRoutes')
+const questionRouter = require('./src/routes/questionRoutes')
+const recentRouter = require('./src/routes/recentRoutes')
+const commentWithQuestionRoutes = require('./src/routes/commentWithQuestionRoutes')
 
+app.use("/api", authRoutes);
+app.use("/api", questionRouter);
+app.use("/api", recentRouter);
+app.use("/api", commentWithQuestionRoutes)
 
-app.use("/user", userRouter)
-
-//end points
-app.get('/', (req, res) => {
-    res.send('Hello!');
-})
 
 //Fetch all the resource in the note collection
 app.get('/api/notes', (req, res) => {
@@ -28,7 +32,7 @@ app.get('/api/notes', (req, res) => {
 
 })
 
-const PORT = process.env.PORT || 3005;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
     console.log(`*****Server Running on Port ${PORT}*****`);
 });
