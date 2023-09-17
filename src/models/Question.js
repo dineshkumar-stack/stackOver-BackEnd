@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const noteSchema = new mongoose.Schema({
+    questionuser: String,
     title: String,
     content: String,
     comments: String,
@@ -12,6 +13,6 @@ const noteSchema = new mongoose.Schema({
     }
 });
 
+const Note = mongoose.model('Note', noteSchema);
 
-
-module.exports = mongoose.model('Note', noteSchema);
+module.exports = Note;

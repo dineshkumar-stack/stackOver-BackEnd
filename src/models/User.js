@@ -27,15 +27,15 @@ const userSchema = new mongoose.Schema({
       type: Date,
       default: Date.now,
     },
-    usercomments: 
-      {
-        usercomment: String,
-        comment: String,
-        timeStamp: {
-          type: Date,
-          default: Date.now,
-        },
+    usercomments:
+    {
+      usercomment: String,
+      comment: String,
+      timeStamp: {
+        type: Date,
+        default: Date.now,
       },
+    },
     view: Number,
     vote: Number
   }]
