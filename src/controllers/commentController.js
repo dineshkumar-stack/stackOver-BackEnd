@@ -23,7 +23,7 @@ const getCommentQuestion = async (req, res) => {
 const submitComment = async (req, res) => {
     const userId = req.userId;
     const { user } = req;
-    const { comments } = req.body;
+    const { comment } = req.body;
 
     try {
         const id = req.params.id
@@ -40,7 +40,7 @@ const submitComment = async (req, res) => {
 
         const commentEntry = {
             usercomment: questionuser,
-            comment: comments,
+            comment: comment,
         };
 
         findQuestion.usercomments.push(commentEntry);
@@ -55,7 +55,16 @@ const submitComment = async (req, res) => {
         console.error("Error fetching scores:", error);
         res.status(500).json({ message: "Error fetching scores" });
     }
-
 }
 
-module.exports = { getCommentQuestion, submitComment }
+const getComment = async (req, res) => {
+    try {
+        const recentData = await Comments.find().exec();
+        res.status(200).json({ recentData });
+    } catch (error) {
+        console.error("Error fetching scores:", error);
+        res.status(500).json({ error: 'Server error' });
+    }
+}
+
+module.exports = { getCommentQuestion, submitComment, getComment }
