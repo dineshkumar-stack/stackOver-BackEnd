@@ -29,11 +29,10 @@ const submitComment = async (req, res) => {
         const id = req.params.id
         const user = await User.findOne({ _id: userId });
         const findQuestion = await Comments.findOne({ _id: id });
-
+        const post = await User.findByIdAndUpdate(id, { $inc: { view: 1 } }, { new: true });
         console.log(findQuestion)
 
         console.log("id", id)
-
         const questionuser = user.username
 
         console.log("questionuser", questionuser)
@@ -47,9 +46,9 @@ const submitComment = async (req, res) => {
         console.log("commentEntry", commentEntry)
 
         await findQuestion.save()
-
+        
             .then(result => {
-                res.status(201).json({ message: '$$$$Qestion Create done$$$$' })
+                res.status(201).json({ post })
             })
     } catch (error) {
         console.error("Error fetching scores:", error);

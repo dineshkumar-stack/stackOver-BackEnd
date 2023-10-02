@@ -19,8 +19,8 @@ const noteSchema = new mongoose.Schema({
             },
         },
     ],
-    view: Number,
-    vote: Number
+    view: { type: Number, default: 0 }, // Add a default view count of 0
+    vote: { type: Number, default: 0 }, // Add a default view count of 0
 });
 
 const Comments = mongoose.model('Comments', noteSchema);
